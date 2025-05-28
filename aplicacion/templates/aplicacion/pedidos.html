@@ -6,5 +6,75 @@
 {% endblock imports %}
 
 {% block content %}
+<section>
+    <div class="container">
+        <h1>Hola, {{ usuario.nombre }}</h1>
+        <div class="row mt-4">
+            <div class="row">
+                <!-- Menu lateral -->
+                <div class="col-12 col-md-3">
+                    <div class="sidebar bg-light rounded">
+                        <ul class="list-unstyled">
+                            <li class="p-3">
+                                <a href="{% url 'perfil' usuario.rut %}">Datos personales</a>
+                            </li>
+                            <li class="p-3">
+                                <a href="{% url 'direcciones' usuario.rut %}">Direcciones</a>
+                            </li>
+                            <li class="p-3">
+                                <a href="{% url 'pedidos' usuario.rut %}">Pedidos</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
 
+                <div class="col-12 col-md-8">
+                    <h4>Mis Pedidos</h4>
+                    {% for pedido in pedidos %}
+                    <div class="order-card row mt-4 pb-3">
+                        <div class="row p-3 rounded">
+                            <div class="col-lg-6 col-md-12 mb-4 mb-lg-0">
+                                <h5><strong>Pedido #{{ pedido.id }}</strong></h5>
+                            </div>
+                            <div class="col-lg-6 col-md-12 mb-4 mb-lg-0">
+                                <h5><strong>{{ pedido.get_estado_display }}</strong></h5>
+                            </div>
+                        </div>
+
+                        {% for item in pedido.pedidozapatilla_set.all %}
+                        <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
+                            <!-- Image -->
+                            <div class="bg-image ripple rounded" data-mdb-ripple-color="light">
+                                <img src="{{ item.zapatilla.foto.url }}" class="w-100" alt="{{ item.zapatilla.modelo }}" />
+                                <a href="#!">
+                                    <div class="mask"></div>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
+                            <!-- Data -->
+                            <p><strong>{{ item.zapatilla.modelo }}</strong></p>
+                            <p>Talla: {{ item.talla }}</p> <!-- Accede a la talla desde el item -->
+                            <p>Cantidad: {{ item.cantidad }}</p>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                            <!-- Boton comprar de nuevo -->
+                            <p class="text-start text-md-center">
+                                <a class="btn btn-dark" href="{% url 'producto' item.zapatilla.id %}">
+                                    Comprar de nuevo
+                                </a>
+                            </p>
+                        </div>
+                        <!-- Divisor -->
+                        <hr class="" />
+                        {% endfor %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock content %}
