@@ -41,7 +41,9 @@
                                             <th>Calle</th>
                                             <th>Número</th>
                                             <th>Detalle</th>
-
+                                            <th>Comuna</th>
+                                            <th>Región</th>
+ 
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -56,7 +58,9 @@
                                                 -
                                                 {% endif %}
                                             </td>
-                                            
+                                            <td>{{ direccion.comuna }}</td>
+                                            <td>{{ direccion.region }}</td>
+
                                         </tr>
                                         {% endfor %}
                                     </tbody>
