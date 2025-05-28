@@ -2,10 +2,54 @@
 {% load static %}
 
 {% block imports %}
-    
+    <link rel="stylesheet" href="{% static "aplicacion/css/categoria.css" %}">
 {% endblock imports %}
 
 {% block content %}
 
+<section>
+<div class="container mx-auto">
+        <div class="title-section d-flex justify-content-between mb-4">
+            <h2> {{ categoria.nombre }} </h2>
+            <div class="order-by">
+                <div class="btn-group">
+                    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    Ordenar por
+                </button>
+                <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Menor a mayor precio</a></li>
+                        <li><a class="dropdown-item" href="#">Mayor a menor precio</a></li>
+                        <li><a class="dropdown-item" href="#">Mayor descuento</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+            
+            <div class="product-container col-12 col-md-10 mx-auto justify-content-center">
+                {% if entity %}
+                    {% for zapatilla in entity %}
+                            <a href="{% url 'producto' zapatilla.id %}">
+                                <div class="card" style="width: 18rem;">
+                                    <img src="{{ zapatilla.foto.url }}" class="card-img-top img-fluid" alt="{{ zapatilla.modelo }}">
+                                    <div class="card-body">
+                                        <h5 class="card-title mb-1">{{ zapatilla.modelo }}</h5>
+                                        <p class="card-text text-body-secondary">{{ zapatilla.marca }}</p>
+                                        <p class="card-text precio">${{ zapatilla.precio }}</p>
+                                    </div>
+                                </div>
+                            </a>
+                    {% endfor %}
+                {% else %}
+                    <p>No hay zapatillas disponibles en esta categoría.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<div>
+    {% include "aplicacion/paginator.html" %}
+</div>
 
 {% endblock content %}
