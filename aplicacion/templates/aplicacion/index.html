@@ -54,6 +54,45 @@
 </section>
 {% endif %}
 
+<!-- Otro carrusel de productos -->
+{% if productos_nike %}
+<section>
+    <div class="container">
+        <h3>Nike</h3>
+    </div>
+    <div id="carrusel2" class="carousel carousel-dark slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            {% for producto in productos_nike %}
+            {% if forloop.counter0|divisibleby:3 %}
+            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                <div class="card-wrapper container-sm d-flex justify-content-around">
+                    {% endif %}
+                    <a href="producto/{{ producto.id }}/">
+                        <div class="card" style="width: 18rem;">
+                            <img src="{{ producto.foto.url }}" class="card-img-top" alt="{{ producto.modelo }}">
+                            <div class="card-body">
+                                <h5 class="card-title mb-1">{{ producto.modelo }}</h5>
+                                <p class="card-text text-body-secondary">{{ producto.marca }}</p>
+                                <p class="card-text precio">${{ producto.precio }}</p>
+                            </div>
+                        </div>
+                    </a>
+                    {% if forloop.counter|divisibleby:3 or forloop.last %}
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+        <button class="carousel-control-prev d-none d-lg-block" type="button" data-bs-target="#carrusel2" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next d-none d-lg-block" type="button" data-bs-target="#carrusel2" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</section>
 {% endif %}
 
 {% endblock content %}
