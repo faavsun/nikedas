@@ -3,4 +3,24 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
+<!-- Contenido de la página -->
+<div class="container mt-5">
+<!-- Título del formulario -->
+<h3 class="text-center mb-4">Inicio de Sesión</h3>
+<!-- Formulario de inicio de sesión -->
+    <form id="formulario" class="formulario col-12 col-md-6 mx-auto" method="post">
+        
+        {% csrf_token %}
+        {{ form|crispy }}
+
+        <button type="submit" class="btn btn-dark me-auto">Iniciar sesión</button>
+        <div class="d-flex mb-3 align-items-center">
+        </div>
+        <div>
+            <p>No tienes cuenta? <a href="{% url "registro" %}">Registrate aqui</a></p>
+            <p>Olvidaste tu contraseña? <a href="{% url "recuperar" %}">Recuperala aqui</a></p>
+        </div>
+    </form>
+</div>
+{% comment %} <script src="{% static "aplicacion/js/vlogin.js" %}"></script> {% endcomment %}
 {% endblock content %}
