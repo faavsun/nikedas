@@ -7,7 +7,15 @@
     <div class="container">
         <h1>Editar {{ zapatilla.modelo }}</h1>
         <div class="row mt-4">
-
+            <div class="col-12 col-md-6">
+                <div class="product-img">
+                    {% if zapatilla_form.instance.foto %}
+                        <img src="{{ zapatilla_form.instance.foto.url }}" class="img-fluid rounded" alt="{{ zapatilla_form.instance.modelo }}">
+                    {% else %}
+                        <p>No hay imagen disponible</p>
+                    {% endif %}
+                </div>
+            </div>
             <div class="col-12 col-md-6">
                 <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
