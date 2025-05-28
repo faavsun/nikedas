@@ -3,5 +3,38 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
+<section>
+    <div class="container">
+        <h1>Editar {{ zapatilla.modelo }}</h1>
+        <div class="row mt-4">
 
+            <div class="col-12 col-md-6">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ zapatilla_form|crispy }}
+                    <h2>Tallas y Cantidades</h2>
+                    {{ stock_formset.management_form }}
+                    {% for form in stock_formset %}
+                        <div class="form-row">
+                            <div class="col">
+                                {{ form.non_field_errors }}
+                                {{ form.id|as_crispy_field }}  <!-- Añadir este campo si no está -->
+                                {{ form.talla|as_crispy_field }}
+                            </div>
+                            <div class="col">
+                                {{ form.cantidad|as_crispy_field }}
+                            </div>
+                            <div class="col-auto" style="display: none;">
+                                {{ form.DELETE|as_crispy_field }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                    <a class="btn btn-outline-primary" href="{% url "detalleproducto" zapatilla.id %}">Volver</a>
+                    <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="{% static "aplicacion/js/validareditar2.js" %}"></script>
 {% endblock content %}
