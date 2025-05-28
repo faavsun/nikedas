@@ -4,5 +4,16 @@
 
     
 {% block content %}
+    <div class="container mt-5 col-12 col-md-6 mx-auto">
+        <h3 id="registro" class="text-center mb-4">Registro de Usuario</h3>
+        <form id="formulario" method="post" class="needs-validation">
+            {% csrf_token %}
+            {{ usuario_form|crispy }}
+            {{ direccion_form|crispy }}
+            <p id="mensajeError"></p>
+            <button type="submit" class="btn btn-dark col-auto mb-3">Registrarse</button>
+        </form>
+    </div>
 
+    <script src="{% static 'aplicacion/js/validacion.js' %}"></script>
 {% endblock content %}
