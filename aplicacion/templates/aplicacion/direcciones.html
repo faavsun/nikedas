@@ -27,6 +27,52 @@
                 </div>
             </div>
 
+            <!-- Contenido principal -->
+            <div class="col-12 col-md-9">
+                <div id="datos-personales" class="mb-4">
+                    <h4 class="mb-3">Direcciones</h4>
+                    <div class="row">
+                        <div class="col">
+                            {% if direcciones %}
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Calle</th>
+                                            <th>Número</th>
+                                            <th>Detalle</th>
 
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for direccion in direcciones %}
+                                        <tr>
+                                            <td>{{ direccion.calle }}</td>
+                                            <td>{{ direccion.numero }}</td>
+                                            <td>
+                                                {% if direccion.detalle %}
+                                                {{ direccion.detalle }}
+                                                {% else %}
+                                                -
+                                                {% endif %}
+                                            </td>
+                                            
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            {% else %}
+                            <p>No tienes direcciones asociadas</p>
+                            {% endif %}
+                            <a href="{% url "usuarios" usuario.rut %}" class="btn btn-outline-primary">Volver</a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 {% endblock content %}
