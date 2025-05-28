@@ -27,7 +27,7 @@
                                     <th>Detalle</th>
                                     <th>Comuna</th>
                                     <th>Región</th>
-
+                                    <th>Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -38,7 +38,10 @@
                                     <td>{{ direccion.detalle }}</td>
                                     <td>{{ direccion.comuna }}</td>
                                     <td>{{ direccion.region }}</td>
-
+                                    <td>
+                                        <a href="{% url "editardirecciones" direccion.id %}" class="btn btn-primary">Editar</a>
+                                        <a href="{% url "eliminardireccion" direccion.id %}" class="btn btn-danger">Eliminar</a>
+                                    </td>
                                 </tr>
                                 {% endfor %}
                             </tbody>
