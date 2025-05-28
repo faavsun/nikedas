@@ -8,4 +8,108 @@
 
 {% block content %}
 
+<section>
+<div class="container">
+        <div class="title-section d-flex justify-content-between mb-4">
+            <h2>{{marca.nombre}}</h2>
+            <div class="order-by">
+                <div class="btn-group">
+                    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    Ordenar por
+                </button>
+                <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Menor a mayor precio</a></li>
+                        <li><a class="dropdown-item" href="#">Mayor a menor precio</a></li>
+                        <li><a class="dropdown-item" href="#">Mayor descuento</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        {% comment %} <div class="row">
+            <div class="filtros col-12 col-md-2">
+                <div class="accordion accordion-flush mt-2" id="accordionFlushExample">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#flush-collapseOne" aria-expanded="false"
+                                aria-controls="flush-collapseOne">
+                                Filtro 1
+                            </button>
+                        </h2>
+                        <div id="flush-collapseOne" class="accordion-collapse collapse"
+                        data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">Placeholder content for this accordion, which is intended to
+                            demonstrate the <code>.accordion-flush</code> class. This is the first item's
+                            accordion
+                            body.</div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#flush-collapseTwo" aria-expanded="false"
+                            aria-controls="flush-collapseTwo">
+                            Filtro 2
+                            </button>
+                        </h2>
+                        <div id="flush-collapseTwo" class="accordion-collapse collapse"
+                        data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">Placeholder content for this accordion, which is intended to
+                            demonstrate the <code>.accordion-flush</code> class. This is the second item's
+                                accordion
+                                body. Let's imagine this being filled with some actual content.</div>
+                            </div>
+                        </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#flush-collapseThree" aria-expanded="false"
+                            aria-controls="flush-collapseThree">
+                            Filtro 3
+                        </button>
+                    </h2>
+                    <div id="flush-collapseThree" class="accordion-collapse collapse"
+                            data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">Placeholder content for this accordion, which is intended to
+                                demonstrate the <code>.accordion-flush</code> class. This is the third item's
+                                accordion
+                                body. Nothing more exciting happening here in terms of content, but just filling up
+                                the
+                                space to make it look, at least at first glance, a bit more representative of how
+                                this
+                                would
+                                look in a real-world application.</div>
+                        </div>
+                    </div>
+                </div>
+            </div> {% endcomment %}
+
+            <div class="product-container col-12 col-md-10 mx-auto justify-content-center">
+                {% if entity %}
+                    {% for zapatilla in entity %}
+                            <a href="{% url 'producto' zapatilla.id %}">
+                                <div class="card" style="width: 18rem;">
+                                    <img src="{{ zapatilla.foto.url }}" class="card-img-top img-fluid" alt="{{ zapatilla.modelo }}">
+                                    <div class="card-body">
+                                        <h5 class="card-title mb-1">{{ zapatilla.modelo }}</h5>
+                                        <p class="card-text text-body-secondary">{{ zapatilla.marca }}</p>
+                                        <p class="card-text precio">${{ zapatilla.precio }}</p>
+                                    </div>
+                                </div>
+                            </a>
+                    {% endfor %}
+                {% else %}
+                    <p>No hay zapatillas disponibles de esta marca.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<div>
+    {% include "aplicacion/paginator.html" %}
+</div>
+
 {% endblock content %}
