@@ -2,5 +2,21 @@
 {% load static %}
 
 {% block content %}
-
+<div class="container mt-5 col-12 col-md-6 col-lg-4">
+    <!-- Título del formulario -->
+    <h3 class="text-center mb-4">Recuperar Contraseña</h3>
+    <!-- Formulario de recuperación de contraseña -->
+    <form action="" method="GET">
+        <div class="mb-3">
+            <label for="correo" class="form-label">Correo Electrónico</label>
+            <input type="email" class="form-control" id="correo" name="correo" required>
+            <p id="errorCorreo" class="mensaje-error"></p>
+        </div>
+        <div class="">
+            <button type="submit" class="btn btn-dark me-auto">Enviar instrucciones</button>
+            <p id="mensajeError" class="mensaje-error"></p>
+        </div>
+    </form>
+</div>
+<script src="{% static "aplicacion/js/vlogin.js" %}"></script>
 {% endblock content %}
