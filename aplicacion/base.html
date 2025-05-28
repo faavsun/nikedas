@@ -1,0 +1,171 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nikedas</title>
+    <link rel="shortcut icon" href="{% static "aplicacion/img/logo.png" %}" type="image/x-icon">
+    <script src="https://kit.fontawesome.com/3e6ff9a951.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static "aplicacion/bootstrap-5.3.3-dist/css/bootstrap.css" %}">
+    <link rel="stylesheet" href="{% static "aplicacion/css/style.css" %}">
+    {% block imports %}
+    {% endblock imports %}
+
+</head>
+
+<body>
+    <!-- Mini navbar -->
+    <div class="extra-nav">
+        <div class="container d-flex justify-content-end">
+            {% if user.is_authenticated %}
+                <a href="{% url "pedidos" user.rut %}" class="me-3">Seguimiento de pedidos</a>
+                {% else %}
+                <a href="{% url "registro" %}">Registrate</a>
+                <span class="ms-3">/</span>
+                <a class="ms-3" href="{% url "login" %}">Inicia sesion</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand pe-3 ms-5" href={% url "index" %}>
+                <img src="{% static "aplicacion/img/logo.png" %}" alt="Logo" width="56">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="{% url "index" %}">Inicio</a>
+                    </li>
+                    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Marcas
+                        </a>
+                         <ul class="dropdown-menu">
+                            {% for marca in marcas %}
+                                <li><a class="dropdown-item" href="{% url 'marca' marca.id %}">{{ marca.nombre }}</a></li>
+                            {% endfor %}
+                        </ul> 
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Categorías
+                        </a>
+                        <ul class="dropdown-menu">
+                            {% for categoria in categorias %}
+                                <li><a class="dropdown-item" href="{% url 'categoria' categoria.id %}">{{ categoria.nombre }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="{% url "administrador" %}">Panel Admin</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item d-flex mx-auto">
+                        <form class="d-flex" method="get" action="{% url 'search_results' %}">
+                            <input class="form-control mr-sm-2" type="search" placeholder="Buscar zapatillas" aria-label="Buscar" name="query">
+                            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Buscar</button>
+                        </form>
+                    </li>
+                </ul>
+                <ul class="navbar-nav me-5 mb-2 mb-lg-0 d-flex flex-row align-items-center gap-3">
+                    {% if user.is_authenticated %}
+                        <li class="nav-item shopping-cart">
+                            <a href="{% url "carrito" %}">
+                                <i class="fa-solid fa-cart-shopping text-body-secondary"></i>
+                            </a>
+                        </li>
+                        {% else %}
+                    {% endif %}
+
+                    <li class="nav-item dropstart profile">
+                        <a href="#" class="nav-link dropdown-toggle " role="button" data-bs-toggle="dropdown">
+                            <i class="fa-solid fa-user"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            {% if user.is_authenticated %}
+                            <li class="dropdown-header">Hola {{ user.nombre }}!</li>
+                            <li><a class="dropdown-item" href="{% url "perfil" user.rut %}">Perfil</a></li>
+                            <li>
+                                <form  action="{% url 'logout' %}" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" class="dropdown-item">Cerrar sesión</button>
+                                </form>
+                            </li>
+                            {% else %}
+                            <li class="dropdown-item">No has iniciado sesion</li>
+                            <li><a class="dropdown-item" href="{% url "login" %}">Iniciar sesión</a></li>
+                            <li><a class="dropdown-item" href="{% url "registro" %}">Registrate</a></li>
+                            {% endif %}
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    {%block content%}
+
+    {%endblock content%}
+     <!-- Footer -->
+    <footer>
+        <div class="container-fluid bg-body-secondary">
+            <div class="container footer-container">
+                <div class="footer-logos">
+                    <a href="https://www.duoc.cl/" target="_blank"><i class="fa-brands fa-square-x-twitter"></i></a>
+                    <a href="https://www.duoc.cl/" target="_blank"><i class="fa-brands fa-square-facebook"></i></a>
+                    <a href="https://www.duoc.cl/" target="_blank"><i class="fa-brands fa-square-instagram"></i></a>
+                </div>
+                <p class="footer-text">© 2024 Nikedas Chile</p>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    {% if messages %}
+        {% for m in messages %}
+            <script>
+                var title = ''
+                var icon = ''
+                
+                {% if 'success' in m.tags %}
+                    title = "¡Operación exitosa!";
+                    icon = 'success';
+                {% elif 'info' in m.tags %}
+                    title = "Información";
+                    icon = 'info';
+                {% elif 'warning' in m.tags %}
+                    title = "Advertencia";
+                    icon = 'warning';
+                {% elif 'error' in m.tags %}
+                    title = "Error";
+                    icon = 'error';
+                {% else %}
+                    title = "Mensaje";
+                    icon = 'info';
+                {% endif %}
+
+                Swal.fire({
+                    title: title,
+                    text: "{{m}}",
+                    icon: icon
+                  });
+
+            </script>
+        {% endfor %}
+    {% endif %}
+    
+    <script src="{% static 'aplicacion/bootstrap-5.3.3-dist/js/bootstrap.bundle.js' %}"></script>
+</body>
+</html>

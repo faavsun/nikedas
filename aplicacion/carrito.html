@@ -1,0 +1,137 @@
+{% extends "aplicacion/base.html" %}
+{% load static %}
+
+{% block imports %}
+    <link rel="stylesheet" href="{% static 'aplicacion/css/carrito.css' %}">
+{% endblock imports %}
+
+{% block content %}
+<section class="h-100 gradient-custom">
+    <div class="container py-5">
+        <div class="row d-flex justify-content-center my-4">
+            <div class="col-md-8">
+                <div class="card mb-4">
+                    <div class="card-header py-3">
+                        <h5 class="mb-0">Carrito - {{ zapatillas_en_carrito|length }} ítems</h5>
+                    </div>
+                    <div class="card-body">
+                        {% for item in zapatillas_en_carrito %}
+                        <!-- Single item -->
+                        <div class="row mb-4">
+                            <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
+                                <!-- Image -->
+                                <div class="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
+                                    <img src="{{ item.zapatilla.foto.url }}" class="w-100" alt="{{ item.zapatilla.modelo }}" />
+                                    <a href="#!">
+                                        <div class="mask"></div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
+                                <!-- Data -->
+                                <p><strong>{{ item.zapatilla.modelo }}</strong></p>
+                                <p>Talla: {{ item.talla }}</p>
+                                <form action="{% url 'eliminarCarrito' item.zapatilla.id %}" method="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="carrito_item_id" value="{{ item.zapatilla.id }}_{{ item.talla }}">
+                                    <button type="submit" class="btn btn-danger btn-sm me-1 mb-2" data-mdb-tooltip-init title="Eliminar ítem">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </form>
+                                <!-- Data -->
+                            </div>
+                            <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                                <!-- Cantidad -->
+                                <div class="d-flex mb-4" style="max-width: 300px">
+                                    <button class="btn btn-primary px-3 me-2" onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+
+                                    <div class="form-outline">
+                                        <input id="cantidad" min="1" max="10" name="quantity" value="{{ item.cantidad }}" type="number" class="form-control" readonly/>
+                                    </div>
+
+                                    <button class="btn btn-primary px-3 ms-2" onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                                <!-- Cantidad -->
+
+                                <!-- Precio -->
+                                <p class="text-start text-md-center">
+                                    <strong>${{ item.subtotal }}</strong>
+                                </p>
+                                <!-- Precio -->
+                            </div>
+                        </div>
+                        <!-- Termina item -->
+                        {% endfor %}
+
+                        <!-- Divisor -->
+                        <hr class="my-4"/>
+
+                        <!-- Selección de Dirección -->
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <form action="{% url 'confirmarCompra' %}" method="post">
+                                    {% csrf_token %}
+                                    <div class="mb-3">
+                                        <label for="direccion">Selecciona una dirección de despacho:</label>
+                                        <select id="direccion" name="direccion" class="form-select">
+                                            {% for dir in direcciones %}
+                                                <option value="{{ dir.id }}">
+                                                    {{ dir.calle }} {{ dir.numero }} 
+                                                    {% if detalle %}
+                                                        {{ dir.detalle }}
+                                                    {% endif %}
+                                                </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-lg btn-block">
+                                        Ir a pagar
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- Fin Selección de Dirección -->
+
+                        <div class="card mb-4 mb-lg-0">
+                            <div class="card-body">
+                                <p><strong>Entrega estimada</strong></p>
+                                <p class="mb-0">{{ delivery_date }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-header py-3">
+                        <h5 class="mb-0">Resumen</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                                Productos
+                                <span>${{ total_carrito }}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                Envío
+                                <span>Gratis</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                                <div>
+                                    <strong>Total</strong>
+                                </div>
+                                <span><strong>${{ total_carrito }}</strong></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</section>
+{% endblock content %}
