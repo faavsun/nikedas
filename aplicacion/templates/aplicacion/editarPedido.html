@@ -1,0 +1,45 @@
+{% extends "aplicacion/baseadmin.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="text-center">Editar Pedido</h3>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group mb-3">
+                    <label for="id_cliente">Cliente:</label>
+                    <input type="text" id="id_cliente" class="form-control" value="{{ form.instance.cliente.nombre }} {{ form.instance.cliente.apellido }}" disabled>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="id_direccion">Dirección:</label>
+                    <input type="text" id="id_direccion" class="form-control" value="{{ form.instance.direccion }}" disabled>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="id_fecha">Fecha:</label>
+                    <input type="text" id="id_fecha" class="form-control" value="{{ form.instance.fecha }}" disabled>
+                </div>
+                <div class="form-group mb-3">
+                    {{ form.estado|as_crispy_field }}
+                </div>
+                <div class="form-group mb-3">
+                    <label>Zapatillas en el pedido:</label>
+                    <ul class="list-group">
+                        {% for item in zapatillas_pedido %}
+                            <li class="list-group-item">
+                                {{ item.zapatilla.modelo }} - Talla: {{ item.talla }} - Cantidad: {{ item.cantidad }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="mt-3">
+                    <button type="submit" class="btn btn-success">Actualizar Pedido</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
