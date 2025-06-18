@@ -2,4 +2,64 @@
 {% load static %}
 
 {% block content %}
+    <!-- Barra de Herramientas -->
+    <div class="container mt-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h3 class="mb-0">Productos</h3>
+            <div>
+                <a href="{% url 'anadir' %}" class="btn btn-primary">
+                    <i class="fa-solid fa-plus"></i> Añadir producto
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- Fin Barra de Herramientas -->
+
+    <!-- PRODUCTOS -->
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Imagen</th>
+                                    <th>Modelo</th>
+                                    <th>Marca</th>
+                                    <th>Precio</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if entity %}
+                                    {% for zapatilla in entity %}
+                                        <tr>
+                                            <td><img src="{{ zapatilla.foto.url }}" alt="{{ zapatilla.modelo }}" style="max-width: 100px;"></td>
+                                            <td>{{ zapatilla.modelo }}</td>
+                                            <td>{{ zapatilla.marca }}</td>
+                                            <td>${{ zapatilla.precio }}</td>
+                                            <td> 
+                                                <a class="btn btn-primary" href="{% url 'detalleproducto' zapatilla.id %}">Detalles</a>
+                                                <a class="btn btn-danger" href="{% url 'eliminarProducto' zapatilla.id %}">Eliminar</a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                {% else %}
+                                    <tr>
+                                        <td colspan="5" class="text-center">No hay productos para mostrar</td>
+                                    </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Fin PRODUCTOS -->
+
+    <div>
+        {% include "aplicacion/paginator.html" %}
+    </div>
 {% endblock content %}
