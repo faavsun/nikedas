@@ -1,9 +1,22 @@
-% extends "aplicacion/baseadmin.html" %}
+{% extends "aplicacion/baseadmin.html" %}
 {% load crispy_forms_tags %}
 
 {% block content %}
 <div class="container mt-4">
     <h3>Crear Pedido</h3>
+    <form method="post">
 
+        <div class="form-group">
+            {{ form|crispy }}
+        </div>
+        <h4>Productos</h4>
+        {{ formset.management_form }}
+        {% for form in formset %}
+            <div class="form-group">
+                {{ form.as_p }}
+            </div>
+        {% endfor %}
+
+    </form>
 </div>
 {% endblock %}
