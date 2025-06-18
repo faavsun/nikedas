@@ -5,7 +5,7 @@
 <div class="container mt-4">
     <h3>Crear Pedido</h3>
     <form method="post">
-
+        {% csrf_token %}
         <div class="form-group">
             {{ form|crispy }}
         </div>
@@ -16,7 +16,7 @@
                 {{ form.as_p }}
             </div>
         {% endfor %}
-
+        <button type="submit" class="btn btn-primary">Guardar Pedido</button>
     </form>
 </div>
 {% endblock %}
