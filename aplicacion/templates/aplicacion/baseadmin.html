@@ -49,5 +49,59 @@
 
     {%endblock content%}
 
+    <!-- Footer -->
+    <footer>
+        <div class="container-fluid bg-body-secondary">
+            <div class="container footer-container">
+                <div class="footer-logos">
+                    <a href="https://www.duoc.cl/" target="_blank"><i class="fa-brands fa-square-x-twitter"></i></a>
+                    <a href="https://www.duoc.cl/" target="_blank"><i class="fa-brands fa-square-facebook"></i></a>
+                    <a href="https://www.duoc.cl/" target="_blank"><i class="fa-brands fa-square-instagram"></i></a>
+                </div>
+                <p class="footer-text">© 2024 Nikedas Chile</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    {% if messages %}
+        {% for m in messages %}
+            <script>
+                var title = ''
+                var icon = ''
+                
+                {% if 'success' in m.tags %}
+                    title = "¡Operación exitosa!";
+                    icon = 'success';
+                {% elif 'info' in m.tags %}
+                    title = "Información";
+                    icon = 'info';
+                {% elif 'warning' in m.tags %}
+                    title = "Advertencia";
+                    icon = 'warning';
+                {% elif 'error' in m.tags %}
+                    title = "Error";
+                    icon = 'error';
+                {% else %}
+                    title = "Mensaje";
+                    icon = 'info';
+                {% endif %}
+
+                Swal.fire({
+                    title: title,
+                    text: "{{m}}",
+                    icon: icon
+                  });
+
+            </script>
+        {% endfor %}
+    {% endif %}
+
+
+    <script src="{% static "aplicacion/bootstrap-5.3.3-dist/js/bootstrap.bundle.js" %}"></script>
+    
+
+
 </body>    
 </html>
