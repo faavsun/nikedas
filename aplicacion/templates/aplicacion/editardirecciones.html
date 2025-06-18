@@ -13,7 +13,12 @@
                     </div>
                     <div class="card-body">
                         <!-- Formulario para editar direcciones -->
-
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {{ form | crispy }}
+                            <a class="btn btn-outline-primary" href='{% url "direccionesusuario" usuario.rut %}' >Volver</a>
+                            <button class="btn btn-primary" type="submit" >Guardar cambios</button>
+                        </form>
                     </div>
                 </div>
             </div>
