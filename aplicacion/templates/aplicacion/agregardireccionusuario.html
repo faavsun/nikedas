@@ -1,0 +1,48 @@
+{% extends "aplicacion/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block imports %}
+<link rel="stylesheet" href="{% static "aplicacion/css/perfil.css" %}">
+{% endblock imports %}
+
+{% block content %}
+<section>
+    <div class="container">
+        <h1>Hola, {{usuario.nombre}}!</h1>
+        <div class="row mt-4">
+            <div class="col-12 col-md-3">
+                <div class="sidebar bg-light rounded">
+                    <ul class="list-unstyled">
+                        <li class="p-3">
+                            <a href="{% url "perfil" usuario.rut %}">Datos personales</a>
+                        </li>
+                        <li class="p-3">
+                            <a href="{% url "direcciones" usuario.rut %}">Direcciones</a>
+                        </li>
+                        <li class="p-3">
+                            <a href="{% url "pedidos" usuario.rut %}">Pedidos</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Contenido principal -->
+            <div class="col-12 col-md-9">
+                <div id="datos-personales" class="mb-4">
+                    <h4 class="mb-3">Datos personales</h4>
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form | crispy }}
+                        <a href="{% url 'direcciones' usuario.rut %}" class="btn btn-outline-primary my-3">
+                            Volver
+                        </a>
+                        <button class="btn btn-primary" type="submit">Agregar direccion</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}
