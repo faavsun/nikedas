@@ -3,5 +3,21 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-   
+    <!-- Producto -->
+    <section>
+        <div class="container">
+            <div class="row">
+                <!-- Formulario para agregar productos -->
+                <p id="mensajeError" style="color: red;"></p>
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ zapatilla_form|crispy }}
+                    {{ stock_form|crispy }}
+                    <button type="submit" class="btn btn-primary">Agregar</button>
+                </form>
+            </div>
+        </div>
+    </section>
+    <!-- Termino seccion producto -->
+    <script src="{% static "aplicacion/js/validareditar.js" %}"></script>
 {% endblock content %}
