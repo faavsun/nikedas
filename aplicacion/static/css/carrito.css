@@ -1,0 +1,64 @@
+img {
+    width: 100px;
+}
+
+body *{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+
+}
+
+section {
+    margin-top: 2rem;
+}
+
+footer {
+    margin-top: 3rem;
+}
+
+h3{
+    margin-bottom: 1rem;
+}
+
+.shopping-cart {
+    font-size: 1.3rem;
+}
+
+.profile {
+    font-size: 1.3rem;
+}
+
+.extra-nav {
+    font-size: .9rem;
+    padding: .4rem;
+}
+
+.extra-nav a{
+    color: #000;
+}
+
+
+.footer-container {
+    text-align: right;
+    padding: 2rem;
+}
+
+.footer-logos, .footer-logos a {
+    font-size: 2rem;
+    color: black;
+}
+
+
+a {
+    cursor: pointer;
+}
+
+
+.mask {
+    background-color: rgba(251, 251, 251, 0.2);
+}

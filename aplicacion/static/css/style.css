@@ -1,0 +1,83 @@
+body *{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+section {
+    margin-top: 2rem;
+}
+
+footer {
+    margin-top: 3rem;
+}
+
+h3{
+    margin-bottom: 1rem;
+}
+
+.shopping-cart {
+    font-size: 1.3rem;
+}
+
+.profile {
+    font-size: 1.3rem;
+}
+
+.extra-nav {
+    font-size: .9rem;
+    padding: .4rem;
+}
+
+.extra-nav a{
+    color: #000;
+}
+
+.card-wrapper {
+    padding: .5rem;
+    gap: .5rem;
+}
+
+
+.card:hover {
+    cursor: pointer;
+    box-shadow: 0px 0px 15px -4px rgba(0,0,0,0.2);
+}
+
+.categorias-populares {
+    font-size: 2.5rem;
+    font-weight: 500;
+    border-bottom: 1px solid #000;
+    margin-bottom: 5px;
+    color: #000;
+    margin: 1rem;
+}
+
+.categorias-populares:hover {
+    border-bottom: 5px solid #000;
+    margin-bottom: 0;
+    cursor: pointer;
+}
+
+.footer-container {
+    text-align: right;
+    padding: 2rem;
+}
+
+.footer-logos, .footer-logos a {
+    font-size: 2rem;
+    color: black;
+}
+
+
+a {
+    cursor: pointer;
+}
+
+#mensajeError {
+    color:red
+}

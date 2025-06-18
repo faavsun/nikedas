@@ -1,0 +1,57 @@
+body * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+
+}
+
+section {
+    margin-top: 2rem;
+}
+
+footer {
+    margin-top: 3rem;
+}
+
+h3 {
+    margin-bottom: 1rem;
+}
+
+.footer-container {
+    text-align: right;
+    padding: 2rem;
+}
+
+.footer-logos,
+.footer-logos a {
+    font-size: 2rem;
+    color: black;
+}
+
+.card-carousel {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+}
+
+.btn-registro  {
+    display: flex;
+    justify-content: end;
+}
+
+form {
+    max-width: 70%;
+    margin: auto;
+}
+
+.login-form {
+    max-width: 50%;
+}
+
+#mensajeError{
+    color: red;
+}

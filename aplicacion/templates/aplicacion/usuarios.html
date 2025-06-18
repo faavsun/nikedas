@@ -1,0 +1,87 @@
+{% extends "aplicacion/baseadmin.html" %}
+{% load static %}
+
+{% block content %}
+<section class="gradient-custom">
+    <div class="container">
+        <div class="row d-flex justify-content-center my-4">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header py-3">
+                        <h5 class="mb-0">Detalles Usuario - {{usuario.rut}}</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="user-info mt-3">
+                            <div class="row mb-3">
+                                <div class="col-md-3">
+                                    <strong>Nombre:</strong>
+                                </div>
+                                <div class="col-md-9">
+                                    {{ usuario.nombre }}
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-3">
+                                    <strong>Apellidos:</strong>
+                                </div>
+                                <div class="col-md-9">
+                                    {{ usuario.apellido }}
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-3">
+                                    <strong>Rut:</strong>
+                                </div>
+                                <div class="col-md-9">
+                                    {{ usuario.rut }}
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-3">
+                                    <strong>Teléfono:</strong>
+                                </div>
+                                <div class="col-md-9">
+                                    {{usuario.telefono}}
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-3">
+                                    <strong>Email:</strong>
+                                </div>
+                                <div class="col-md-9">
+                                    {{usuario.correo}}
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-3">
+                                    <strong>Fecha de Nacimiento:</strong>
+                                </div>
+                                <div class="col-md-9">
+                                    {{usuario.fnac}}
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-3">
+                                    <strong>Dirección:</strong>
+                                </div>
+                                <div class="col-md-9">
+                                    {% for direccion in usuario.direcciones.all %}
+                                    <p>{{ direccion.calle }} {{ direccion.numero }}, {% if direccion.detalle %}{{ direccion.detalle }}, {% endif %}{{ direccion.comuna }}, {{ direccion.region }}</p>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="pt-4">
+                                <a class="btn btn-outline-primary" href="{% url 'totalusuarios' %}">Volver</a> 
+                                <a class="btn btn-outline-primary" href='{% url "direccionesusuario" usuario.rut %}' >Editar direcciones</a>
+                                <a class="btn btn-primary me-3" href="{% url 'editarusuarios' usuario.rut %}">Editar datos</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}
+</html>

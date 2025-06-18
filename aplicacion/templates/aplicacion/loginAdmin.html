@@ -1,0 +1,27 @@
+{% extends "aplicacion/baseadmin.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<!-- Contenido de la página -->
+<div class="container mt-5">
+    <!-- Título del formulario -->
+    <h3 class="text-center mb-4">Ingresa tus credenciales</h3>
+    <!-- Formulario de inicio de sesión -->
+    <form id="formulario" class="formulario col-12 col-md-6 mx-auto" method="post">
+        
+        {% csrf_token %}
+        {{ form|crispy }}
+
+        <div class="d-flex flex-column mb-3 align-items-center">
+            <button type="submit" class="btn btn-dark mb-3">Iniciar sesión</button>
+            <div>
+                <p>Olvidaste tu contraseña? <a href="{% url "recuperar" %}">Recuperala aqui</a></p>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+{% endblock content %}
