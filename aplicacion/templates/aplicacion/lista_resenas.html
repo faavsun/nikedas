@@ -1,5 +1,17 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
-  
+  <div class="container">
+    <h2>Listado de Reseñas</h2>
+    <ul>
+      {% for resena in resenas %}
+        <li>
+          <strong>{{ resena.usuario }}</strong> sobre <em>{{ resena.zapatilla.nombre }}</em>:<br>
+          {{ resena.comentario }} <small>({{ resena.fecha|date:"d/m/Y H:i" }})</small>
+        </li>
+      {% empty %}
+        <li>No hay reseñas registradas.</li>
+      {% endfor %}
+    </ul>
+  </div>
 {% endblock %}
