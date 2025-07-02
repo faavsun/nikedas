@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+  <div class="container">
+    <h2>{{ zapatilla.nombre }}</h2>
+    <p>{{ zapatilla.descripcion }}</p>
+    <p>Precio: ${{ zapatilla.precio }}</p>
+    <p>Stock: {{ zapatilla.stock }}</p>
+
+    <hr>
+    <h4>Reseñas:</h4>
+    {% for resena in zapatilla.resena_set.all %}
+      <div class="mb-3">
+        <strong>{{ resena.usuario }}</strong> - {{ resena.fecha|date:"d/m/Y" }}<br>
+        {{ resena.comentario }}
+      </div>
+    {% empty %}
+      <p>No hay reseñas aún.</p>
+    {% endfor %}
+
+    <a href="{% url 'agregar_resena' zapatilla.id %}" class="btn btn-primary mt-3">Agregar Reseña</a>
+  </div>
+{% endblock %}
