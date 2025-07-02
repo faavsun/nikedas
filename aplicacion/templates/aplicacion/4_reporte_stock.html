@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+  <div class="container">
+    <h2>Productos con Stock Bajo</h2>
+    <ul>
+      {% for zapatilla in zapatillas %}
+        <li>{{ zapatilla.nombre }} - Stock: {{ zapatilla.stock }}</li>
+      {% empty %}
+        <li>No hay productos con stock bajo.</li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endblock %}
